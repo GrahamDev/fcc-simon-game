@@ -1,5 +1,5 @@
 import React from 'react';
-import OnOffToggle from './OnOffToggle'
+import PowerButton from './PowerButton'
 
 
 class Game extends React.Component {
@@ -7,7 +7,10 @@ class Game extends React.Component {
     return (
       <div>
         <h1>Game Component</h1>
-        <OnOffToggle />
+        <PowerButton
+          power={this.props.power}
+          togglePower={this.props.togglePower}
+        />
       </div>
     )
   }
