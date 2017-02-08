@@ -24,7 +24,7 @@ class App extends Component {
       inputLocked: true,
       // color buttons in the game
       buttons: [
-        { id: 0, name: "yellow", isPressed: true, isActive: false },
+        { id: 0, name: "yellow", isPressed: false, isActive: false },
         { id: 1, name: "red", isPressed: false, isActive: false },
         { id: 2, name: "green", isPressed: false, isActive: false },
         { id: 3, name: "blue", isPressed: false, isActive: false },
