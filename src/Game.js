@@ -1,7 +1,7 @@
 import React from 'react';
 import PowerButton from './PowerButton';
 import StrictButton from './StrictButton';
-
+import Counter from './Counter'
 
 class Game extends React.Component {
   render () {
@@ -16,6 +16,7 @@ class Game extends React.Component {
           strict={this.props.strict}
           toggleStrict={this.props.toggleStrict}
         />
+        <Counter counter={this.props.counter}/>
       </div>
     )
   }

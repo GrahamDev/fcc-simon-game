@@ -18,6 +18,8 @@ class App extends Component {
       onOff: false,
       // strict mode,
       strictButton: false,
+      // count of moves made
+      counter: 0,
     };
   }
 
@@ -39,6 +41,22 @@ class App extends Component {
     this.setState({ strictButton });
   }
 
+  counterReset() {
+    let counter = this.state.counter;
+
+    counter = 0;
+
+    this.setState({ counter });
+  }
+
+  counterAddOne() {
+    let counter = this.state.counter;
+
+    counter += 1;
+
+    this.setState({ counter });
+  }
+
   render() {
     return (
       <div className="App">
@@ -47,6 +65,7 @@ class App extends Component {
           togglePower={this.togglePower}
           strict={this.state.strictButton}
           toggleStrict={this.toggleStrict}
+          counter={this.state.counter}
         />
       </div>
     );
