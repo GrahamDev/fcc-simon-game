@@ -20,6 +20,14 @@ class App extends Component {
       strictButton: false,
       // count of moves made
       counter: 0,
+      // color buttons in the game
+      // TODO: get the correct highColor for when the button is pressed
+      buttons: [
+        { id: 0, baseColor: "yellow", highColor: "white", isPressed: false, isActive: false },
+        { id: 1, baseColor: "red", highColor: "white", isPressed: false, isActive: false },
+        { id: 2, baseColor: "green", highColor: "white", isPressed: false, isActive: false },
+        { id: 3, baseColor: "blue", highColor: "white", isPressed: false, isActive: false },
+      ]
     };
   }
 
@@ -66,6 +74,7 @@ class App extends Component {
           strict={this.state.strictButton}
           toggleStrict={this.toggleStrict}
           counter={this.state.counter}
+          buttons={this.state.buttons}
         />
       </div>
     );
