@@ -1,5 +1,6 @@
 import React from 'react';
-import PowerButton from './PowerButton'
+import PowerButton from './PowerButton';
+import StrictButton from './StrictButton';
 
 
 class Game extends React.Component {
@@ -10,6 +11,10 @@ class Game extends React.Component {
         <PowerButton
           power={this.props.power}
           togglePower={this.props.togglePower}
+        />
+        <StrictButton
+          strict={this.props.strict}
+          toggleStrict={this.props.toggleStrict}
         />
       </div>
     )

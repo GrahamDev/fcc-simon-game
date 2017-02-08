@@ -11,9 +11,13 @@ class App extends Component {
     super(props);
 
     this.togglePower = this.togglePower.bind(this);
+    this.toggleStrict = this.toggleStrict.bind(this);
 
     this.state = {
-      onOff: false
+      // power button
+      onOff: false,
+      // strict mode,
+      strictButton: false,
     };
   }
 
@@ -26,10 +30,24 @@ class App extends Component {
     this.setState({ onOff });
   }
 
+  //TODO: decide if strict button should work if power if off
+  toggleStrict() {
+    let strictButton = this.state.strictButton;
+
+    strictButton = !strictButton;
+
+    this.setState({ strictButton });
+  }
+
   render() {
     return (
       <div className="App">
-        <Game power={this.state.onOff} togglePower={this.togglePower}/>
+        <Game
+          power={this.state.onOff}
+          togglePower={this.togglePower}
+          strict={this.state.strictButton}
+          toggleStrict={this.toggleStrict}
+        />
       </div>
     );
   }
