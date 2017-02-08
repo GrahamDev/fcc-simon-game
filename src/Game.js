@@ -22,8 +22,8 @@ class Game extends React.Component {
         <Counter counter={this.props.counter}/>
         {
           buttons.map((button) => {
-             return (
-               <SeqButton key={button.id} params={button} />
+            return (
+              <SeqButton key={button.id} params={button} />
             )
           })
         }

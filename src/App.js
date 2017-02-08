@@ -20,13 +20,14 @@ class App extends Component {
       strictButton: false,
       // count of moves made
       counter: 0,
+      // input lock, default true as game is powered off on load
+      inputLocked: true,
       // color buttons in the game
-      // TODO: get the correct highColor for when the button is pressed
       buttons: [
-        { id: 0, baseColor: "yellow", highColor: "white", isPressed: false, isActive: false },
-        { id: 1, baseColor: "red", highColor: "white", isPressed: false, isActive: false },
-        { id: 2, baseColor: "green", highColor: "white", isPressed: false, isActive: false },
-        { id: 3, baseColor: "blue", highColor: "white", isPressed: false, isActive: false },
+        { id: 0, name: "yellow", isPressed: true, isActive: false },
+        { id: 1, name: "red", isPressed: false, isActive: false },
+        { id: 2, name: "green", isPressed: false, isActive: false },
+        { id: 3, name: "blue", isPressed: false, isActive: false },
       ]
     };
   }
@@ -34,10 +35,17 @@ class App extends Component {
   // simulate switching a power button.
   togglePower() {
     let onOff = this.state.onOff;
+    let inputLocked = this.state.inputLocked;
 
     onOff = !onOff;
 
-    this.setState({ onOff });
+    if(onOff) {
+      inputLocked = false;
+    } else {
+      inputLocked = true;
+    }
+
+    this.setState({ onOff, inputLocked });
   }
 
   //TODO: decide if strict button should work if power if off
