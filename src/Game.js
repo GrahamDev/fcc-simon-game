@@ -7,7 +7,7 @@ import SeqButton from './SeqButton';
 class Game extends React.Component {
   render () {
     const buttons = this.props.buttons;
-
+    
     return (
       <div>
         <h1>Game Component</h1>
@@ -23,7 +23,10 @@ class Game extends React.Component {
         {
           buttons.map((button) => {
             return (
-              <SeqButton key={button.id} params={button} />
+              <SeqButton key={button.id}
+                seqButtonDown={this.props.seqButtonDown}
+                seqButtonUp={this.props.seqButtonUp}
+                params={button} />
             )
           })
         }

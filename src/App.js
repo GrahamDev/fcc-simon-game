@@ -12,6 +12,8 @@ class App extends Component {
 
     this.togglePower = this.togglePower.bind(this);
     this.toggleStrict = this.toggleStrict.bind(this);
+    this.seqButtonDown = this.seqButtonDown.bind(this);
+    this.seqButtonUp = this.seqButtonUp.bind(this);
 
     this.state = {
       // power button
@@ -32,6 +34,14 @@ class App extends Component {
     };
   }
 
+  // recieve a SeqButtonDown event
+  seqButtonDown(id) {
+    console.log(id);
+  }
+
+  seqButtonUp(id) {
+    console.log(id);
+  }
   // simulate switching a power button.
   togglePower() {
     let onOff = this.state.onOff;
@@ -83,6 +93,8 @@ class App extends Component {
           toggleStrict={this.toggleStrict}
           counter={this.state.counter}
           buttons={this.state.buttons}
+          seqButtonDown={this.seqButtonDown}
+          seqButtonUp={this.seqButtonUp}
         />
       </div>
     );

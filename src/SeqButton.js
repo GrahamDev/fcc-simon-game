@@ -5,6 +5,16 @@ import React from 'react'
 import classNames from 'classnames';
 
 class SeqButton extends React.Component {
+  btnDown(e) {
+    const id = this.props.params.id;
+    this.props.seqButtonDown(id);
+  }
+
+  btnUp(e) {
+    const id = this.props.params.id;
+    this.props.seqButtonUp(id);
+  }
+
   render () {
     const params = this.props.params;
     const btnClass = classNames({
@@ -15,7 +25,10 @@ class SeqButton extends React.Component {
 
     return (
       <div>
-        <button className={btnClass}>{params.name}</button>
+        <button className={btnClass}
+          onMouseDown={(e) => this.btnDown(e)}
+          onMouseUp={(e) => this.btnUp(e)}
+          >{params.name}</button>
       </div>
     )
   }
