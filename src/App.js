@@ -14,6 +14,7 @@ class App extends Component {
     this.toggleStrict = this.toggleStrict.bind(this);
     this.seqButtonDown = this.seqButtonDown.bind(this);
     this.seqButtonUp = this.seqButtonUp.bind(this);
+    this.startButton = this.startButton.bind(this);
 
     this.state = {
       // power button
@@ -25,13 +26,83 @@ class App extends Component {
       // input lock, default true as game is powered off on load
       inputLocked: true,
       // color buttons in the game
+      // isPressed, controls the view/sound of the button by setting the class
+      // wasPressed, allows the game control method to detect if user pressed
+      // a button. Button handler will set wasPressed to true, once game control
+      // has handled that button press it will set it to false.
       buttons: [
-        { id: 0, name: "yellow", isPressed: false, isActive: false },
-        { id: 1, name: "red", isPressed: false, isActive: false },
-        { id: 2, name: "green", isPressed: false, isActive: false },
-        { id: 3, name: "blue", isPressed: false, isActive: false },
-      ]
+        { id: 0, name: "yellow", isPressed: false, wasPressed: false },
+        { id: 1, name: "red", isPressed: false, wasPressed: false },
+        { id: 2, name: "green", isPressed: false, wasPressed: false },
+        { id: 3, name: "blue", isPressed: false, wasPressed: false },
+      ],
+      // sequence of button presses in the game
+      // TODO: should
+      sequence: [0,1,3,2],
+      // is it the userTurn?
+      userMove: false,
     };
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    // console.log(this.state, nextState);
+    if (this.state.userMove === false && nextState.userMove === true) {
+      console.log("switching on userMove");
+    }
+    if (this.state.userMove === true && nextState.userMove === false) {
+      console.log("switching off userMove");
+    }
+  }
+
+  resetGame() {
+    this.setState({
+      counter: 0,
+      inputLocked: true,
+      sequence: []
+    });
+    this.addToSequence();
+  }
+
+  startButton() {
+    // only works if power is on
+    if(!this.state.onOff) { return; }
+
+    console.log("starting game...");
+    this.resetGame();
+
+    this.showSequence();
+  }
+
+  showSequence() {
+    let index = 0;
+
+    function nextBtn() {
+      index++;
+      console.log(`highlight button == ${index}`);
+      setTimeout(function() {
+          console.log(`un-highlight button == ${index}`);
+      }, 750);
+    }
+
+    var id = window.setInterval(() => {
+      if (index >= this.state.sequence.length) {
+        clearTimeout(id);
+        this.setState({ userMove: true });
+        return;
+      }
+      nextBtn();
+    }, 1000);
+  }
+
+  // add a random button to sequence
+  addToSequence() {
+    let sequence = this.state.sequence;
+
+    const random = Math.floor(Math.random()*4);
+
+    sequence.push(random);
+
+    this.setState({ sequence });
   }
 
   // recieve a SeqButtonDown event
@@ -49,6 +120,7 @@ class App extends Component {
 
     onOff = !onOff;
 
+    // TODO: inputLocked is not going to be used like this...
     if(onOff) {
       inputLocked = false;
     } else {
