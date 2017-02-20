@@ -10,6 +10,13 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    this.audio = [];
+    this.audio[0] = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
+    this.audio[1] = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
+    this.audio[2] = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
+    this.audio[3] = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
+
+
     this.togglePower = this.togglePower.bind(this);
     this.toggleStrict = this.toggleStrict.bind(this);
     this.seqButtonDown = this.seqButtonDown.bind(this);
@@ -94,6 +101,7 @@ class App extends Component {
     function nextBtn() {
       let buttons = that.state.buttons;
       buttons[that.state.sequence[index]].isPressed = true;
+      that.audio[that.state.sequence[index]].play();
       that.setState({ buttons });
 
       setTimeout(function() {
@@ -127,6 +135,7 @@ class App extends Component {
     this.setState({ sequence, counter });
   }
 
+  // this function controls most of the gameplay logic =========================
   // recieve a SeqButtonDown event
   seqButtonDown(pressedButton) {
     // don't do anything if input is locked
@@ -160,7 +169,9 @@ class App extends Component {
     } else {
       if (this.state.strictButton) {
         let counter = "!!";
-        this.setState({ counter });
+        this.setState({ counter, inputLocked: true });
+        this.audio[0].play();
+        this.audio[2].play();
         // halt game
         return;
       } else {
