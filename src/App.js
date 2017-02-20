@@ -41,6 +41,8 @@ class App extends Component {
       sequence: [],
       // is it the userTurn?
       userMove: false,
+      // index in the sequence as the user inputs it
+      sequenceIndex: 0,
     };
   }
 
@@ -67,7 +69,8 @@ class App extends Component {
     this.setState({
       counter: 0,
       inputLocked: true,
-      sequence: []
+      sequence: [],
+      sequenceIndex: 0
     });
     this.addToSequence();
   }
@@ -114,37 +117,82 @@ class App extends Component {
   // add a random button to sequence
   addToSequence() {
     let sequence = this.state.sequence;
+    let counter = this.state.counter;
 
     const random = Math.floor(Math.random()*4);
-
     sequence.push(random);
 
-    this.setState({ sequence });
+    counter++;
+
+    this.setState({ sequence, counter });
   }
 
   // recieve a SeqButtonDown event
-  seqButtonDown(id) {
-    console.log(id);
+  seqButtonDown(pressedButton) {
+    // don't do anything if input is locked
+    if (this.state.inputLocked) { return; }
+
+    let sequenceIndex = this.state.sequenceIndex
+    const correctButton = this.state.sequence[sequenceIndex];
+    // check to see if this button press matches the seq...
+    if (pressedButton === correctButton) {
+      console.log("right");
+      sequenceIndex++;
+      this.setState({ sequenceIndex });
+
+      // check to see if max sequence length has been reached...
+      if (sequenceIndex === 20) {
+        console.log("game won");
+        // halt game
+        return;
+      }
+
+      // check to see if we are at the end of the seq, if so start another
+      // round of the game
+
+      if (sequenceIndex === this.state.sequence.length) {
+        sequenceIndex = 0;
+        this.setState({ sequenceIndex, inputLocked: true });
+        this.addToSequence();
+        this.showSequence();
+      }
+
+    } else {
+      if (this.state.strictButton) {
+        let counter = "!!";
+        this.setState({ counter });
+        // halt game
+        return;
+      } else {
+        // reset so player can try the sequence again
+        sequenceIndex = 0;
+        this.setState({ sequenceIndex, inputLocked: true });
+        this.showSequence();
+      }
+    }
   }
 
   seqButtonUp(id) {
+    if (this.state.inputLocked) { return; }
+
+
     console.log(id);
   }
   // simulate switching a power button.
   togglePower() {
     let onOff = this.state.onOff;
-    let inputLocked = this.state.inputLocked;
+    // let inputLocked = this.state.inputLocked;
 
     onOff = !onOff;
 
     // TODO: inputLocked is not going to be used like this...
-    if(onOff) {
-      inputLocked = false;
-    } else {
-      inputLocked = true;
-    }
+    // if(onOff) {
+    //   inputLocked = false;
+    // } else {
+    //   inputLocked = true;
+    // }
 
-    this.setState({ onOff, inputLocked });
+    this.setState({ onOff });
   }
 
   //TODO: decide if strict button should work if power if off
