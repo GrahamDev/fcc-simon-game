@@ -8,3 +8,7 @@ button {
   height: 50px;
   width: 150px;
 }
+
+.btn-pressed {
+  background-color: yellow;
+}

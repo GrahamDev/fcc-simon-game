@@ -38,7 +38,7 @@ class App extends Component {
       ],
       // sequence of button presses in the game
       // TODO: should
-      sequence: [0,1,3,2],
+      sequence: [],
       // is it the userTurn?
       userMove: false,
     };
@@ -48,10 +48,19 @@ class App extends Component {
     // console.log(this.state, nextState);
     if (this.state.userMove === false && nextState.userMove === true) {
       console.log("switching on userMove");
+      this.setUserMoveTimeout();
     }
     if (this.state.userMove === true && nextState.userMove === false) {
-      console.log("switching off userMove");
+      this.unSetUserMoveTimeout();
     }
+  }
+
+  setUserMoveTimeout() {
+    console.log('set user timeout');
+  }
+
+  unSetUserMoveTimeout() {
+    console.log('cancel user timeout');
   }
 
   resetGame() {
@@ -74,20 +83,28 @@ class App extends Component {
   }
 
   showSequence() {
+    this.setState({ inputLocked: true });
+
     let index = 0;
+    let that = this;
 
     function nextBtn() {
-      index++;
-      console.log(`highlight button == ${index}`);
+      let buttons = that.state.buttons;
+      buttons[that.state.sequence[index]].isPressed = true;
+      that.setState({ buttons });
+
       setTimeout(function() {
-          console.log(`un-highlight button == ${index}`);
+        let buttons = that.state.buttons;
+        buttons[that.state.sequence[index]].isPressed = false;
+        that.setState({ buttons });
+        index++;
       }, 750);
     }
 
     var id = window.setInterval(() => {
       if (index >= this.state.sequence.length) {
         clearTimeout(id);
-        this.setState({ userMove: true });
+        this.setState({ userMove: true, inputLocked: false });
         return;
       }
       nextBtn();
@@ -167,6 +184,7 @@ class App extends Component {
           buttons={this.state.buttons}
           seqButtonDown={this.seqButtonDown}
           seqButtonUp={this.seqButtonUp}
+          startButton={this.startButton}
         />
       </div>
     );
