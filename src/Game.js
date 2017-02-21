@@ -4,6 +4,7 @@ import StrictButton from './StrictButton';
 import Counter from './Counter';
 import SeqButton from './SeqButton';
 import StartButton from './StartButton';
+import ResetButton from './ResetButton';
 
 class Game extends React.Component {
   render () {
@@ -22,6 +23,9 @@ class Game extends React.Component {
         <StrictButton
           strict={this.props.strict}
           toggleStrict={this.props.toggleStrict}
+        />
+        < ResetButton
+          toggleReset={this.props.toggleReset}
         />
         <Counter counter={this.props.counter}/>
         {

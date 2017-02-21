@@ -10,18 +10,19 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.audio = [];
-    this.audio[0] = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
-    this.audio[1] = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
-    this.audio[2] = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
-    this.audio[3] = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
-
+    this.audio = [
+      new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
+      new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
+      new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3'),
+      new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3')
+    ];
 
     this.togglePower = this.togglePower.bind(this);
     this.toggleStrict = this.toggleStrict.bind(this);
     this.seqButtonDown = this.seqButtonDown.bind(this);
     this.seqButtonUp = this.seqButtonUp.bind(this);
     this.startButton = this.startButton.bind(this);
+    this.resetGame = this.resetGame.bind(this);
 
     this.state = {
       // power button
@@ -73,13 +74,21 @@ class App extends Component {
   }
 
   resetGame() {
+    console.log("reset game...");
     this.setState({
       counter: 0,
       inputLocked: true,
       sequence: [],
-      sequenceIndex: 0
+      sequenceIndex: 0,
+      userMove: false,
+      buttons: [
+        { id: 0, name: "yellow", isPressed: false, wasPressed: false },
+        { id: 1, name: "red", isPressed: false, wasPressed: false },
+        { id: 2, name: "green", isPressed: false, wasPressed: false },
+        { id: 3, name: "blue", isPressed: false, wasPressed: false },
+      ],
     });
-    this.addToSequence();
+    // this.addToSequence();
   }
 
   startButton() {
@@ -88,7 +97,7 @@ class App extends Component {
 
     console.log("starting game...");
     this.resetGame();
-
+    this.addToSequence();
     this.showSequence();
   }
 
@@ -141,6 +150,14 @@ class App extends Component {
     // don't do anything if input is locked
     if (this.state.inputLocked) { return; }
 
+    // play audio
+    this.audio[pressedButton].play();
+
+    // set css
+    let buttons = this.state.buttons;
+    buttons[pressedButton].isPressed = true;
+    this.setState({ buttons });
+
     let sequenceIndex = this.state.sequenceIndex
     const correctButton = this.state.sequence[sequenceIndex];
     // check to see if this button press matches the seq...
@@ -183,11 +200,13 @@ class App extends Component {
     }
   }
 
-  seqButtonUp(id) {
-    if (this.state.inputLocked) { return; }
+  seqButtonUp(pressedButton) {
+    // if (this.state.inputLocked) { return; }
 
-
-    console.log(id);
+    // unset css
+    let buttons = this.state.buttons;
+    buttons[pressedButton].isPressed = false;
+    this.setState({ buttons });
   }
   // simulate switching a power button.
   togglePower() {
@@ -244,6 +263,7 @@ class App extends Component {
           seqButtonDown={this.seqButtonDown}
           seqButtonUp={this.seqButtonUp}
           startButton={this.startButton}
+          toggleReset={this.resetGame}
         />
       </div>
     );

@@ -19,7 +19,7 @@ class SeqButton extends React.Component {
     const params = this.props.params;
     const btnClass = classNames({
       [`btn-${params.name}`]: true,
-      'btn-pressed': params.isPressed,
+      [`btn-${params.name}-pressed`]: params.isPressed,
       'btn-active': params.isActive
     });
 
