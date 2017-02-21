@@ -227,6 +227,9 @@ class App extends Component {
 
   //TODO: decide if strict button should work if power if off
   toggleStrict() {
+    // only works if power is on
+    if(!this.state.onOff) { return; }
+
     let strictButton = this.state.strictButton;
 
     strictButton = !strictButton;

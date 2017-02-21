@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 class PowerButton extends React.Component {
   handleClick(e) {
@@ -6,11 +7,14 @@ class PowerButton extends React.Component {
   }
 
   render () {
+    const btnClass = classNames({
+      [`btn-on`]: this.props.power,
+    });
+
     return (
       <div>
-        <h2>Power Button</h2>
-        <button onClick={(e) => this.handleClick(e)}>
-          {this.props.power ? "On" : "Off"}
+        <h2>Power</h2>
+        <button className={btnClass} onClick={(e) => this.handleClick(e)}>
         </button>
       </div>
     )

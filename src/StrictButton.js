@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames';
 
 class StrictButton extends React.Component {
   handleClick(e) {
@@ -6,11 +7,13 @@ class StrictButton extends React.Component {
   }
 
   render () {
+    const btnClass = classNames({
+      [`btn-on`]: this.props.strict,
+    });
     return (
       <div>
-        <h2>Stict Button</h2>
-        <button onClick={(e) => this.handleClick(e)}>
-          {this.props.strict ? "Strict On" : "Strict Off"}
+        <h2>Strict</h2>
+        <button className={btnClass} onClick={(e) => this.handleClick(e)}>
         </button>
       </div>
     )

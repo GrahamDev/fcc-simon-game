@@ -12,22 +12,23 @@ class Game extends React.Component {
 
     return (
       <div>
-        <h1>Game Component</h1>
-        <PowerButton
-          power={this.props.power}
-          togglePower={this.props.togglePower}
-        />
-        <StartButton
-          startButton={this.props.startButton}
-        />
-        <StrictButton
-          strict={this.props.strict}
-          toggleStrict={this.props.toggleStrict}
-        />
-        < ResetButton
-          toggleReset={this.props.toggleReset}
-        />
-        <Counter counter={this.props.counter}/>
+        <div className="game-controls">
+          <PowerButton
+            power={this.props.power}
+            togglePower={this.props.togglePower}
+          />
+          <StartButton
+            startButton={this.props.startButton}
+          />
+          <StrictButton
+            strict={this.props.strict}
+            toggleStrict={this.props.toggleStrict}
+          />
+          < ResetButton
+            toggleReset={this.props.toggleReset}
+          />
+          <Counter counter={this.props.counter}/>
+        </div>
         {
           buttons.map((button) => {
             return (
@@ -38,6 +39,7 @@ class Game extends React.Component {
             )
           })
         }
+
       </div>
     )
   }
