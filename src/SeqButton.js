@@ -18,6 +18,7 @@ class SeqButton extends React.Component {
   render () {
     const params = this.props.params;
     const btnClass = classNames({
+      'btn-div': true,
       [`btn-${params.name}`]: true,
       [`btn-${params.name}-pressed`]: params.isPressed,
       'btn-active': params.isActive
@@ -25,10 +26,12 @@ class SeqButton extends React.Component {
 
     return (
       <div>
-        <button className={btnClass}
+        <div className={btnClass}
           onMouseDown={(e) => this.btnDown(e)}
-          onMouseUp={(e) => this.btnUp(e)}
-          >{params.name}</button>
+          onMouseUp={(e) => this.btnUp(e)}>
+
+        </div>
+
       </div>
     )
   }

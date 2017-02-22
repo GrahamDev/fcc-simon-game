@@ -11,7 +11,7 @@ class StrictButton extends React.Component {
       [`btn-on`]: this.props.strict,
     });
     return (
-      <div>
+      <div className="strict-btn-div">
         <h2>Strict</h2>
         <button className={btnClass} onClick={(e) => this.handleClick(e)}>
         </button>

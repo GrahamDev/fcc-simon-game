@@ -11,8 +11,9 @@ class Game extends React.Component {
     const buttons = this.props.buttons;
 
     return (
-      <div>
+      <div className="container">
         <div className="game-controls">
+          <h2 className="title">Simon</h2>
           <PowerButton
             power={this.props.power}
             togglePower={this.props.togglePower}

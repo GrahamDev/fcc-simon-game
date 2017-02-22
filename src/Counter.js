@@ -2,11 +2,16 @@ import React from 'react'
 
 class Counter extends React.Component {
   render () {
+    let count = this.props.counter;
+
+    if (this.props.counter <= 9) {
+      count = "0" + count;
+    }
+
     return(
-      <div>
-        <h2>Counter</h2>
-        <p>{this.props.counter}</p>
-      </div>
+      <span className="counter">
+        <span>{count}</span>
+      </span>
     )
   }
 }

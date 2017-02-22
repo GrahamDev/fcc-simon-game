@@ -7,9 +7,9 @@ class StartButton extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className="start-btn-div">
         <h2>Start</h2>
-        <button onClick={(e) => this.handleClick(e)}>Start</button>
+        <button onClick={(e) => this.handleClick(e)}></button>
       </div>
     )
   }

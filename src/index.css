@@ -4,37 +4,171 @@ body {
   font-family: sans-serif;
 }
 
+.container {
+  position: relative;
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
 .game-controls {
-  width: 400px;
-  height: 400px;
-  border-radius: 200px;
-  background-color: #222;
-  float: left;
-  margin: 20px;
+  width: 300px;
+  height: 300px;
+  border-radius: 100%;
+  background-color: black;
   color: #eee;
+  border: 10px solid grey;
+  position: absolute;
+  left: 150px;
+  top: 150px;
+  /*How to do gradident css pattern...*/
+  /*https://codepen.io/anon/pen/vxBjWg*/
+  background-image: -webkit-repeating-linear-gradient(135deg, rgba(255,255,255,.3), rgba(255,255,255,.3) 1px, transparent 2px, transparent 2px, rgba(255,255,255,.3) 3px);
+  background-image: -moz-repeating-linear-gradient(135deg, rgba(255,255,255,.3), rgba(255,255,255,.3) 1px, transparent 2px, transparent 2px, rgba(255,255,255,.3) 3px);
+  background-image: -o-repeating-linear-gradient(135deg, rgba(255,255,255,.3), rgba(255,255,255,.3) 1px, transparent 2px, transparent 2px, rgba(255,255,255,.3) 3px);
+  background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.3), rgba(255,255,255,.3) 1px, transparent 2px, transparent 2px, rgba(255,255,255,.3) 3px);
+  -webkit-background-size: 4px 4px;
+  -moz-background-size: 4px 4px;
+  background-size: 4px 4px;
+
+}
+
+
+
+button:focus {
+  outline: none;
 }
 
 .game-controls button {
   font-size: 10px;
-  height: 10px;
-  width: 10px;
-  border-radius: 5px;
-  display: inline;
+  border: none;
+  width: 25px;
+  height: 15px;
+  border-radius: 50%;
+  /*background-color: yellow;*/
 }
 
 .game-controls h2 {
   font-size: 12px;
   /*display: inline;*/
+  position: realative;
+  display: inline;
+  margin: 5px;
+}
+
+h2.title {
+    font-size: 48px;
+    /* margin: 0; */
+    /* padding-top: 20px; */
+    position: absolute;
+    top: 20px;
+    left: 76px;
+}
+
+.btn-div {
+  width: 300px;
+  height: 300px;
+  border: 2px dotted grey;
+  display: inline-block;
+  z-index: -1;
+  border: 8px solid grey;
 }
 
 .btn-on {
   background-color: red;
 }
 
-button {
-
+.btn-yellow {
+ background-color: #BFBD28;
+ position: absolute;
+ left: 0;
+ top: 300px;
+ border-bottom-left-radius: 100%;
 }
 
-.btn-pressed-yellow {
-  background-color: yellow;
+.btn-yellow-pressed {
+  background-color: #F2EF33;
+}
+
+.btn-blue {
+  background-color: #265796;
+  position: absolute;
+  left: 300px;
+  top: 300px;
+  border-bottom-right-radius: 100%;
+}
+
+.btn-blue-pressed {
+  background-color: #3984E6;
+}
+
+.btn-red {
+  background-color: #990000;
+  position: absolute;
+  left: 300px;
+  top: 0;
+
+  border-top-right-radius: 100%;
+}
+
+.btn-red-pressed {
+  background-color: red;
+}
+
+.btn-green {
+  background-color: #227823;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-top-left-radius: 100%
+}
+
+.btn-green-pressed {
+  background-color: #40E643;
+}
+
+.container {
+  position: relative;
+  width: 600px;
+  margin: 0 auto;
+}
+
+.counter {
+    padding: 20px;
+    padding-top: 5px;
+    background-color: #222;
+    margin: 10px;
+    border: 3px solid grey;
+    height: 20px;
+    width: 40px;
+    border-radius: 4px;
+    position: absolute;
+    left: 100px;
+    top: 206px;
+    font-size: 32px;
+    color: red;
+}
+
+.power-btn-div {
+  position: absolute;
+  top: 117px;
+  left: 54px;
+}
+
+.strict-btn-div {
+  position: absolute;
+  top: 150px;
+  left: 54px;
+}
+
+.start-btn-div {
+  position: absolute;
+  top: 117px;
+  left: 150px;
+}
+
+.reset-btn-div {
+  position: absolute;
+  top: 150px;
+  left: 150px;
 }

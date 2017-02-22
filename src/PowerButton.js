@@ -12,7 +12,7 @@ class PowerButton extends React.Component {
     });
 
     return (
-      <div>
+      <div className="power-btn-div">
         <h2>Power</h2>
         <button className={btnClass} onClick={(e) => this.handleClick(e)}>
         </button>
