@@ -17,6 +17,8 @@ class App extends Component {
       new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3')
     ];
 
+    this.timeout = null;
+
     this.togglePower = this.togglePower.bind(this);
     this.toggleStrict = this.toggleStrict.bind(this);
     this.seqButtonDown = this.seqButtonDown.bind(this);
@@ -29,8 +31,8 @@ class App extends Component {
       onOff: false,
       // strict mode,
       strictButton: false,
-      // count of moves made
-      counter: 0,
+      // count of moves made, -1 for power off
+      counter: -1,
       // input lock, default true as game is powered off on load
       inputLocked: true,
       // color buttons in the game
@@ -66,15 +68,31 @@ class App extends Component {
   }
 
   setUserMoveTimeout() {
+    let that = this;
     console.log('set user timeout');
+    this.timeout = setTimeout(function() {
+      // user took too long to play, strict mode, game over
+      if (that.state.strictButton) {
+        that.setState({
+          counter: "!!",
+          inputLocked: true
+        });
+      } else {
+        // show sequence again...
+        that.setState({ sequenceIndex: 0, inputLocked: true, userMove: false });
+        that.showSequence();
+      }
+    }, 4000)
   }
 
   unSetUserMoveTimeout() {
     console.log('cancel user timeout');
+    clearTimeout(this.timeout);
   }
 
   resetGame() {
     console.log("reset game...");
+    this.unSetUserMoveTimeout();
     this.setState({
       counter: 0,
       inputLocked: true,
@@ -102,7 +120,7 @@ class App extends Component {
   }
 
   showSequence() {
-    this.setState({ inputLocked: true });
+    this.setState({ inputLocked: true, userMove: false });
 
     let index = 0;
     let that = this;
@@ -150,6 +168,9 @@ class App extends Component {
     // don't do anything if input is locked
     if (this.state.inputLocked) { return; }
 
+    // clear timeout
+    this.unSetUserMoveTimeout();
+
     // play audio
     this.audio[pressedButton].play();
 
@@ -165,10 +186,12 @@ class App extends Component {
       console.log("right");
       sequenceIndex++;
       this.setState({ sequenceIndex });
+      this.setUserMoveTimeout();
 
       // check to see if max sequence length has been reached...
       if (sequenceIndex === 20) {
         console.log("game won");
+        this.unSetUserMoveTimeout();
         // halt game
         return;
       }
@@ -186,7 +209,7 @@ class App extends Component {
     } else {
       if (this.state.strictButton) {
         let counter = "!!";
-        this.setState({ counter, inputLocked: true });
+        this.setState({ counter, inputLocked: true, userMove: false });
         this.audio[0].play();
         this.audio[2].play();
         // halt game
@@ -194,15 +217,13 @@ class App extends Component {
       } else {
         // reset so player can try the sequence again
         sequenceIndex = 0;
-        this.setState({ sequenceIndex, inputLocked: true });
+        this.setState({ sequenceIndex, inputLocked: true, userMove: false});
         this.showSequence();
       }
     }
   }
 
   seqButtonUp(pressedButton) {
-    // if (this.state.inputLocked) { return; }
-
     // unset css
     let buttons = this.state.buttons;
     buttons[pressedButton].isPressed = false;
@@ -211,18 +232,19 @@ class App extends Component {
   // simulate switching a power button.
   togglePower() {
     let onOff = this.state.onOff;
-    // let inputLocked = this.state.inputLocked;
+    let counter = this.state.counter;
+
 
     onOff = !onOff;
+    if (!onOff) {
+      counter = -1;
+      this.unSetUserMoveTimeout();
+    } else {
+      counter = 0;
+    }
 
-    // TODO: inputLocked is not going to be used like this...
-    // if(onOff) {
-    //   inputLocked = false;
-    // } else {
-    //   inputLocked = true;
-    // }
 
-    this.setState({ onOff });
+    this.setState({ onOff, counter });
   }
 
   //TODO: decide if strict button should work if power if off

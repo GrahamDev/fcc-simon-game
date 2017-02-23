@@ -8,6 +8,10 @@ class Counter extends React.Component {
       count = "0" + count;
     }
 
+    if (this.props.counter === -1) {
+      count = null;
+    }
+
     return(
       <span className="counter">
         <span>{count}</span>
