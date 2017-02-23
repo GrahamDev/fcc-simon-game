@@ -134,6 +134,7 @@ h2.title {
 }
 
 .counter {
+    font-family: 'Orbitron', sans-serif;
     padding: 20px;
     padding-top: 5px;
     background-color: #222;
@@ -145,8 +146,14 @@ h2.title {
     position: absolute;
     left: 100px;
     top: 206px;
-    font-size: 32px;
+    font-size: 41px;
     color: red;
+}
+
+.counter-digits {
+    position: absolute;
+    top: 6px;
+    left: 6px;
 }
 
 .power-btn-div {

@@ -14,7 +14,7 @@ class Counter extends React.Component {
 
     return(
       <span className="counter">
-        <span>{count}</span>
+        <span className="counter-digits">{count}</span>
       </span>
     )
   }

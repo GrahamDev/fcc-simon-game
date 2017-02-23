@@ -74,7 +74,7 @@ class App extends Component {
       // user took too long to play, strict mode, game over
       if (that.state.strictButton) {
         that.setState({
-          counter: "!!",
+          counter: "---",
           inputLocked: true
         });
       } else {
@@ -208,7 +208,7 @@ class App extends Component {
 
     } else {
       if (this.state.strictButton) {
-        let counter = "!!";
+        let counter = "---";
         this.setState({ counter, inputLocked: true, userMove: false });
         this.audio[0].play();
         this.audio[2].play();
