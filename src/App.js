@@ -98,6 +98,7 @@ class App extends Component {
       inputLocked: true,
       sequence: [],
       sequenceIndex: 0,
+      strictButton: false,
       userMove: false,
       buttons: [
         { id: 0, name: "yellow", isPressed: false, wasPressed: false },
@@ -239,6 +240,7 @@ class App extends Component {
     if (!onOff) {
       counter = -1;
       this.unSetUserMoveTimeout();
+      this.resetGame();
     } else {
       counter = 0;
     }
