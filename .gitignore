@@ -6,8 +6,8 @@ node_modules
 # testing
 coverage
 
-# production
-build
+# production - we are using gh-pages so we need the build
+# build
 
 # misc
 .DS_Store
